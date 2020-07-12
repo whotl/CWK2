@@ -33,7 +33,7 @@ public class LoginFrame extends Application {
 	 * attach it to the root yet *
 	 */
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) {
 		mainStage = primaryStage;
 		mainStage.setTitle("CWK2");
 		sqLite = new SQLite();
@@ -64,13 +64,14 @@ public class LoginFrame extends Application {
 	
 	public void setActions() {
 		loginButton.setOnAction(new LoginButtonListener());
+		registerButton.setOnAction(new RegisterButtonListener());
 	}
 
 	/**
 	 * Button listeners
 	 */
 	
-	
+
 	private class LoginButtonListener implements EventHandler<ActionEvent> {
 
 		public void handle(ActionEvent arg0) {
@@ -82,6 +83,15 @@ public class LoginFrame extends Application {
 			} else {
 				System.out.println("false");
 			}
+		}
+		
+	}
+
+	private class RegisterButtonListener implements EventHandler<ActionEvent> {
+
+		public void handle(ActionEvent arg0) {
+			mainStage.close();
+			new RegisterFrame();
 		}
 		
 	}
