@@ -1,6 +1,10 @@
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * AlertDialog shows an alert dialog with specific header and message
+ * 
+ */
 public class AlertDialog {
 	public static void showAlert(String header, String message) {
 		Alert alert = new Alert(AlertType.INFORMATION);

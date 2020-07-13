@@ -14,7 +14,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
+/**
+ * AdminFrame offers a GUI for administrator to interact with the system
+ *
+ */
 public class AdminFrame {
 	private User loggedUser;
 	

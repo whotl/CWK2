@@ -9,11 +9,18 @@ import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * SQLite class offers the connection between database and project.
+ * 
+ */
 public class SQLite {
 
 	private Connection conn;
 	private String url = "jdbc:sqlite:";
 
+	/**
+	 * Connect to database
+	 */
 	public void connect()
 	{
 		try {
@@ -27,6 +34,9 @@ public class SQLite {
 		}
 	}
 
+	/**
+	 * disconnect from database
+	 */
 	public void disconnect() {
 		try {
 			if (conn != null) {
@@ -37,6 +47,15 @@ public class SQLite {
 		}
 	}
 
+	/**
+	 * register a new user
+	 * @param fName first name of the user
+	 * @param sName surname of the user
+	 * @param email email of the user
+	 * @param password password of the user
+	 * @param userType type of the user
+	 * @return true if the user registered successfully and otherwise return false
+	 */
 	public boolean registerNewUser(String fName, String sName, String email, String password, String userType) {
 		try {
 			connect();
@@ -57,6 +76,11 @@ public class SQLite {
 		}
 	}
 
+	/**
+	 * Delete a user by his email
+	 * @param email email of a user
+	 * @return true if the user is deleted and otherwise return false
+	 */
 	public boolean deleteUser(String email) {
 		try {
 			connect();
@@ -71,6 +95,12 @@ public class SQLite {
 		return false;
 	}
 
+	/**
+	 * Check if the user can login with correct email and password
+	 * @param email email that user entered
+	 * @param password password that user entered
+	 * @return true if the user entered correct email and password and otherwise return false
+	 */
 	public User login(String email, String password) {
 		User user = null;
 		try {
@@ -96,6 +126,10 @@ public class SQLite {
 		return user;
 	}
 
+	/**
+	 * Logout from the system
+	 * @param email email of the user who wants to logout
+	 */
 	public void logout(String email) {
 		try {
 			connect();
@@ -116,6 +150,10 @@ public class SQLite {
 		}
 	}
 	
+	/**
+	 * Get all activity log
+	 * @return all activity log
+	 */
 	public ObservableList<ActivityLog> getAllActivityLog() {
 		ObservableList<ActivityLog> data = FXCollections.observableArrayList();
 		try {
@@ -131,6 +169,10 @@ public class SQLite {
 		return data;
 	}
 	
+	/**
+	 * Get all hosts' data
+	 * @return all hosts' data
+	 */
 	public ObservableList<Host> getAllHostsData() {
 		ObservableList<Host> data = FXCollections.observableArrayList();
 		try {

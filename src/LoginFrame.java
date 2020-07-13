@@ -13,7 +13,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
+/**
+ * The entrance of the project and offers a login frame to user
+ */
 public class LoginFrame extends Application {
 	
 	private Stage mainStage;

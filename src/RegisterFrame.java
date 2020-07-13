@@ -14,6 +14,10 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+/**
+ * User registered in this RegisterFrame
+ *
+ */
 public class RegisterFrame extends Window {
 	
 	private Stage mainStage;

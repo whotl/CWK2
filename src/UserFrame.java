@@ -23,7 +23,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
+/**
+ * UserFrame offers a GUI for users to search data and display the data graphically
+ *
+ */
 public class UserFrame {
 	private User loggedUser;
 	private Stage mainStage;
