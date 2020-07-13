@@ -131,6 +131,21 @@ public class SQLite {
 		return data;
 	}
 	
+	public ObservableList<Host> getAllHostsData() {
+		ObservableList<Host> data = FXCollections.observableArrayList();
+		try {
+			connect();
+			PreparedStatement pStatement = conn.prepareStatement("SELECT * FROM Host");
+			ResultSet result = pStatement.executeQuery();
+			while (result.next()) {
+				data.add(new Host(result.getString("host_id"), result.getString("name"), result.getString("type"), result.getInt("price"), result.getInt("minimum_nights")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
 	public static void main(String[] args) {
 //		SQLite sqLite = new SQLite();
 //		sqLite.connect();

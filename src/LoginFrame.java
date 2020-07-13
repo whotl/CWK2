@@ -82,6 +82,9 @@ public class LoginFrame extends Application {
 				if (user.getType() == User.ADMIN_TYPE) {
 					mainStage.close();
 					new AdminFrame(user);
+				} else {
+					mainStage.close();
+					new UserFrame(user);
 				}
 			} else {
 				AlertDialog.showAlert("Login Failed", "Invalid email or password");
