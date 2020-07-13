@@ -21,7 +21,7 @@ public class LoginFrame extends Application {
 	private PasswordField passwordField;
 	private Button loginButton;
 	private Button registerButton;
-	private SQLite sqLite;
+	public static SQLite sqLite;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -77,11 +77,14 @@ public class LoginFrame extends Application {
 		public void handle(ActionEvent arg0) {
 			String email = emailField.getText().trim();
 			String password = passwordField.getText();
-			System.out.println(email + " " + password);
-			if (sqLite.login(email, password)) {
-				System.out.println("true");
+			User user = sqLite.login(email, password);
+			if (user != null) {
+				if (user.getType() == User.ADMIN_TYPE) {
+					mainStage.close();
+					new AdminFrame(user);
+				}
 			} else {
-				System.out.println("false");
+				AlertDialog.showAlert("Login Failed", "Invalid email or password");
 			}
 		}
 		

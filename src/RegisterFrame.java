@@ -1,5 +1,4 @@
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -62,6 +61,7 @@ public class RegisterFrame extends Window {
 	
 	public void setActions() {
 		backButton.setOnAction(new BackButtonListener());
+		registerButton.setOnAction(new RegisterButtonListener());
 	}
 
 	/**
@@ -75,6 +75,34 @@ public class RegisterFrame extends Window {
 			mainStage.close();
 			LoginFrame loginFrame = new LoginFrame();
 			loginFrame.start(new Stage());
+		}
+		
+	}
+	
+	private class RegisterButtonListener implements EventHandler<ActionEvent> {
+
+		public void handle(ActionEvent arg0) {
+			String fName = fNameField.getText().trim();
+			String sName = sNameField.getText().trim();
+			String email = emailField.getText().trim();
+			String password = passwordField.getText();
+			String passwordConfirm = passwordConfirmField.getText();
+			if (fName.length() == 0 || sName.length() == 0 || email.length() == 0 || password.length() == 0) {
+				AlertDialog.showAlert("Register Failed", "Empty fields are not accepted");
+			} else {
+				if (password.equals(passwordConfirm)) {
+					boolean result = LoginFrame.sqLite.registerNewUser(fName, sName, email, password, "U");
+					if (result) {
+						mainStage.close();
+						LoginFrame loginFrame = new LoginFrame();
+						loginFrame.start(new Stage());
+					} else {
+						AlertDialog.showAlert("Register Failed", "The email address is already registered.");
+					}
+				} else {
+					AlertDialog.showAlert("Register Failed", "Confirm password is not the same as password");
+				}
+			}
 		}
 		
 	}

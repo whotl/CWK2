@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class SQLite {
 
 	private Connection conn;
@@ -15,7 +18,7 @@ public class SQLite {
 	{
 		try {
 			Class.forName("org.sqlite.JDBC");
-			String dburl = url + getClass().getClassLoader().getResource("database.db").getPath();
+			String dburl = url + "database/database.db";
 			conn = DriverManager.getConnection(dburl);
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
@@ -54,7 +57,8 @@ public class SQLite {
 		}
 	}
 
-	public boolean login(String email, String password) {
+	public User login(String email, String password) {
+		User user = null;
 		try {
 			connect();
 			PreparedStatement pStatement = conn.prepareStatement("SELECT * FROM User WHERE uEmail=?");
@@ -67,7 +71,7 @@ public class SQLite {
 					activityStatement.setDate(1, loginDate);
 					activityStatement.setString(2, result.getString("uEmail"));
 					activityStatement.execute();
-					return true;
+					user = new User(result.getString("uFirstName"), result.getString("uSurname"), email, result.getString("uType").charAt(0));
 				}
 			}
 		} catch (SQLException e) {
@@ -75,7 +79,7 @@ public class SQLite {
 		} finally {
 			disconnect();
 		}
-		return false;
+		return user;
 	}
 
 	public void logout(String email) {
@@ -98,15 +102,30 @@ public class SQLite {
 		}
 	}
 	
+	public ObservableList<ActivityLog> getAllActivityLog() {
+		ObservableList<ActivityLog> data = FXCollections.observableArrayList();
+		try {
+			connect();
+			PreparedStatement pStatement = conn.prepareStatement("SELECT * FROM Activity_Log");
+			ResultSet result = pStatement.executeQuery();
+			while (result.next()) {
+				data.add(new ActivityLog(result.getString("uEmail"), result.getDate("loginDateTime"), result.getDate("logoutDateTime")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
 	public static void main(String[] args) {
-		SQLite sqLite = new SQLite();
+//		SQLite sqLite = new SQLite();
 //		sqLite.connect();
 //		sqLite.registerNewUser("TestFirstname", "TestSurname", "testemail@email.com", "testpassword", "U");
 //		System.out.println(sqLite.login("testemail@email.com", "testpassword"));
 //		sqLite.logout("testemail@email.com");
 //		sqLite.registerNewUser("Admin", "Admin", "admin@email.com", "admin", "A");
-		System.out.println(sqLite.login("admin@email.com", "admin"));
-		sqLite.logout("admin@email.com");
+//		System.out.println(sqLite.login("admin@email.com", "admin"));
+//		sqLite.logout("admin@email.com");
 //		sqLite.disconnect();
 	}
 }
