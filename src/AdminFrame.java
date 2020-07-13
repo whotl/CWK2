@@ -38,8 +38,11 @@ public class AdminFrame {
 		mainStage = new Stage();
 		mainStage.setTitle("CWK2 Admin Pane");
 		root = new BorderPane();
-		root.setCenter(setLogScreen());
 		root.setLeft(setMenu());
+		root.setCenter(setLogScreen());
+		logMenu.setDisable(true);
+		setRegisterScreen();
+		setDeleteScreen();
 		setActions();
 		Scene scene = new Scene(root, 800, 900);
 		mainStage.setScene(scene);
@@ -97,12 +100,12 @@ public class AdminFrame {
 		emailField = new TextField();
 		emailField.setPromptText("Enter user email");
 		deleteButton = new Button("DELETE");
+		deleteButton.setOnAction(new DeleteButtonListener());
 		VBox vBox = new VBox();
 		vBox.setSpacing(20);
 		vBox.setAlignment(Pos.CENTER);
 		vBox.getChildren().addAll(emailField, deleteButton);
 		vBox.setPadding(new Insets(20));
-		deleteButton.requestFocus();
 		return vBox;
 	}
 	
@@ -118,12 +121,12 @@ public class AdminFrame {
 		passwordConfirmField = new PasswordField();
 		passwordConfirmField.setPromptText("Enter password again");
 		registerButton = new Button("Register");
+		registerButton.setOnAction(new RegisterButtonListener());
 		VBox vBox = new VBox();
 		vBox.setSpacing(20);
 		vBox.setAlignment(Pos.CENTER);
 		vBox.getChildren().addAll(firstnameField, surnameField, emailField, passwordField, passwordConfirmField, registerButton);
 		vBox.setPadding(new Insets(20));
-		registerButton.requestFocus();
 		return vBox;
 	}
 	
@@ -147,7 +150,7 @@ public class AdminFrame {
 			deleteMenu.setDisable(false);
 		}
 		
-	}	
+	}
 	
 	public class RegisterMenuListener implements EventHandler<ActionEvent> {
 
@@ -158,7 +161,7 @@ public class AdminFrame {
 			deleteMenu.setDisable(false);
 		}
 		
-	}	
+	}
 	
 	public class deleteMenuListener implements EventHandler<ActionEvent> {
 
@@ -167,6 +170,56 @@ public class AdminFrame {
 			registerMenu.setDisable(false);
 			logMenu.setDisable(false);
 			deleteMenu.setDisable(true);
+		}
+		
+	}
+	
+	private class RegisterButtonListener implements EventHandler<ActionEvent> {
+
+		public void handle(ActionEvent arg0) {
+			String fName = firstnameField.getText().trim();
+			String sName = surnameField.getText().trim();
+			String email = emailField.getText().trim();
+			String password = passwordField.getText();
+			String passwordConfirm = passwordConfirmField.getText();
+			if (fName.length() == 0 || sName.length() == 0 || email.length() == 0 || password.length() == 0) {
+				AlertDialog.showAlert("Register Failed", "Empty fields are not accepted");
+			} else {
+				if (password.equals(passwordConfirm)) {
+					boolean result = LoginFrame.sqLite.registerNewUser(fName, sName, email, password, "U");
+					if (result) {
+						AlertDialog.showAlert("Admin register", "Register New User Succeed");
+						firstnameField.setText("");
+						surnameField.setText("");
+						emailField.setText("");
+						passwordField.setText("");
+						passwordConfirmField.setText("");
+					} else {
+						AlertDialog.showAlert("Register Failed", "The email address is already registered.");
+					}
+				} else {
+					AlertDialog.showAlert("Register Failed", "Confirm password is not the same as password");
+				}
+			}
+		}
+		
+	}
+	
+	private class DeleteButtonListener implements EventHandler<ActionEvent> {
+
+		public void handle(ActionEvent arg0) {
+			String email = emailField.getText().trim();
+			if (email.length() == 0) {
+				AlertDialog.showAlert("Delete Failed", "Empty fields are not accepted");
+			} else {
+				boolean result = LoginFrame.sqLite.deleteUser(email);
+				if (result) {
+					AlertDialog.showAlert("Admin delete", "Delete user succeed");
+					emailField.setText("");
+				} else {
+					AlertDialog.showAlert("Delete Failed", "The email address does not exist.");
+				}
+			}
 		}
 		
 	}

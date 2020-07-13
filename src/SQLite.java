@@ -57,6 +57,20 @@ public class SQLite {
 		}
 	}
 
+	public boolean deleteUser(String email) {
+		try {
+			connect();
+			PreparedStatement pStatement = conn.prepareStatement("DELETE FROM User WHERE uEmail=?");
+			pStatement.setString(1, email);
+			return pStatement.executeUpdate() != 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return false;
+	}
+
 	public User login(String email, String password) {
 		User user = null;
 		try {
