@@ -17,6 +17,7 @@ import javafx.stage.WindowEvent;
 /**
  * AdminFrame offers a GUI for administrator to interact with the system
  *
+ * @author created by Haowen Miao
  */
 public class AdminFrame {
 	private User loggedUser;

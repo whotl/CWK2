@@ -26,6 +26,7 @@ import javafx.stage.WindowEvent;
 /**
  * UserFrame offers a GUI for users to search data and display the data graphically
  *
+ * @author created by Haowen Miao
  */
 public class UserFrame {
 	private User loggedUser;

@@ -1,6 +1,7 @@
 /**
  * Host class stores a host as an object
  * 
+ * @author created by Haowen Miao
  */
 public class Host {
 	/**

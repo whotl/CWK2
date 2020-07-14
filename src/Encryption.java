@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Encryption class can encrypt a string with SHA encryption algorithm
  *
+ * @author created by Haowen Miao
  */
 public class Encryption {
 	public static String encrypt(String s) {

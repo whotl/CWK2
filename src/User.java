@@ -1,6 +1,7 @@
 /**
  * User class stores a user detail as an object
  *
+ * @author created by Haowen Miao
  */
 public class User {
 	public static final char ADMIN_TYPE = 'A';

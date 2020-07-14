@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 /**
  * ActivityLog class store one activity log as an object
  *
+ * @author created by Haowen Miao
  */
 public class ActivityLog {
 	/**

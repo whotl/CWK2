@@ -17,6 +17,7 @@ import javafx.stage.Window;
 /**
  * User registered in this RegisterFrame
  *
+ * @author created by Haowen Miao
  */
 public class RegisterFrame extends Window {
 	

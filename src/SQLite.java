@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 /**
  * SQLite class offers the connection between database and project.
  * 
+ * @author created by Haowen Miao
  */
 public class SQLite {
 

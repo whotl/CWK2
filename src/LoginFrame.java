@@ -15,6 +15,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 /**
  * The entrance of the project and offers a login frame to user
+ * 
+ * @author created by Haowen Miao
  */
 public class LoginFrame extends Application {
 	
